@@ -1,0 +1,31 @@
+{
+  "name": "My Trip — Half Old Streets, Half Future",
+  "short_name": "My Trip",
+  "description": "Personal companion for the 7-day Chaoshan & Guangdong trip.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5ecd8",
+  "theme_color": "#c0392b",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

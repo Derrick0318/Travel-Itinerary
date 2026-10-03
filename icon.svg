@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#c0392b"/>
+  <!-- perforated stamp edge -->
+  <rect x="86" y="86" width="340" height="340" rx="6" fill="#f5ecd8"/>
+  <rect x="86" y="86" width="340" height="340" rx="6" fill="none" stroke="#c0392b" stroke-width="10" stroke-dasharray="0 21" stroke-linecap="round"/>
+  <rect x="112" y="112" width="288" height="288" fill="none" stroke="#1c2442" stroke-width="3"/>
+  <!-- envelope -->
+  <rect x="148" y="190" width="216" height="144" rx="6" fill="#fffaf0" stroke="#1c2442" stroke-width="8"/>
+  <path d="M150 196 L256 276 L362 196" fill="none" stroke="#1c2442" stroke-width="8" stroke-linejoin="round"/>
+  <!-- airmail stripe -->
+  <path d="M148 322 H364" stroke="#2a4a9a" stroke-width="8"/>
+  <!-- gold seal -->
+  <circle cx="256" cy="276" r="22" fill="#c9993a" stroke="#1c2442" stroke-width="6"/>
+  <path d="M256 287 l-9 -9 a6 6 0 0 1 9 -8 a6 6 0 0 1 9 8 z" fill="#c0392b"/>
+</svg>

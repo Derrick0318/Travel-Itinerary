@@ -1,0 +1,5 @@
+# Local tooling
+.claude/
+
+# Original brochure scan (kept local, not needed by the site)
+*.pdf

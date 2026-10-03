@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Half Old Streets, Half Future — my trip</title>
+<meta name="description" content="My personal companion for the 7-day Chaoshan &amp; Guangdong trip.">
+<meta name="theme-color" content="#f5ecd8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10142a" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="My Trip">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i="skip">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top" aria-label="My trip">
+      <span class="brand-mark" aria-hidden="true">信</span>
+      <span class="brand-text"><b data-i="brand">My Trip</b><small data-i="brandSub">a love letter on the road</small></span>
+    </a>
+    <nav class="topnav" aria-label="Sections" data-i-label="navLabel">
+      <a href="#days" data-nav="days" data-i="navDays">Days</a>
+      <a href="#map" data-nav="map" data-i="navMap">Map</a>
+      <a href="#food" data-nav="food" data-i="navFood">Food</a>
+      <a href="#info" data-nav="info" data-i="navInfo">Info</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language" data-i-label="langLabel">
+      <button type="button" data-act="lang" data-v="zh" lang="zh-CN">中</button>
+      <button type="button" data-act="lang" data-v="en" lang="en">EN</button>
+    </div>
+  </div>
+  <div class="trail" aria-hidden="true"><div class="base"></div><div class="fill" id="trail-fill"></div><span class="plane" id="trail-plane">✈︎</span></div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+  <div id="hero-slot"></div>
+
+  <section id="days" class="sec" aria-labelledby="h-days">
+    <div class="wrap">
+      <div id="flights-slot"></div>
+      <div id="days-head"></div>
+    </div>
+    <div class="chips-bar" id="chips-bar">
+      <div class="wrap"><div class="chips" id="chips" role="group" data-i-label="chipsLabel"></div></div>
+    </div>
+    <div class="wrap"><div id="days-slot" class="day-list"></div></div>
+  </section>
+
+  <section id="map" class="sec" aria-labelledby="h-map">
+    <div class="wrap" id="map-slot"></div>
+  </section>
+
+  <section id="food" class="sec" aria-labelledby="h-food">
+    <div class="wrap" id="food-slot"></div>
+  </section>
+
+  <section id="info" class="sec" aria-labelledby="h-info">
+    <div class="wrap" id="info-slot"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="airmail" aria-hidden="true"></div>
+  <div class="wrap">
+    <p data-i="footPhotos">Photos: Wikimedia Commons</p>
+    <p data-i="footItin">Itinerary: Brighton Travel &amp; Tour (prepared by Amy)</p>
+    <p class="foot-small" data-i="footMine">Made for my own trip. Not an official booking page.</p>
+  </div>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Sections" data-i-label="navLabel" data-none="true">
+  <span class="tab-ind" aria-hidden="true"></span>
+  <a href="#days" data-nav="days"><span class="ti" aria-hidden="true">🗓️</span><span data-i="navDays">Days</span></a>
+  <a href="#map" data-nav="map"><span class="ti" aria-hidden="true">🗺️</span><span data-i="navMap">Map</span></a>
+  <a href="#food" data-nav="food"><span class="ti" aria-hidden="true">🍜</span><span data-i="navFood">Food</span></a>
+  <a href="#info" data-nav="info"><span class="ti" aria-hidden="true">ℹ️</span><span data-i="navInfo">Info</span></a>
+</nav>
+
+<div class="sheet-root" id="sheet-root" aria-hidden="true">
+  <div class="sheet-bg" data-act="closesheet"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" id="sheet"></div>
+</div>
+
+<noscript><p style="padding:1rem">This page needs JavaScript to show the itinerary.</p></noscript>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
