@@ -160,7 +160,7 @@
       title = { zh: '距离出发还有', en: 'Until take-off' };
       var p = countParts(), units = [['天', 'Days'], ['时', 'Hrs'], ['分', 'Min'], ['秒', 'Sec']];
       body = '<div class="flip" id="flip" role="timer">' + units.map(function (u, i) {
-        return '<div class="flip-u' + (i === 3 ? ' sec' : '') + '"><div class="flip-n" data-i="' + i + '">' + pad(p[i]) + '</div><span class="flip-l">' + u[0] + ' <span lang="en">' + u[1] + '</span></span></div>';
+        return '<div class="flip-u' + (i === 3 ? ' is-sec' : '') + '"><div class="flip-n" data-i="' + i + '">' + pad(p[i]) + '</div><span class="flip-l">' + u[0] + ' <span lang="en">' + u[1] + '</span></span></div>';
       }).join('<span class="flip-colon" aria-hidden="true">:</span>') + '</div>';
       side = nextFlightTicket();
     } else if (idx < T.days.length) {
@@ -344,6 +344,40 @@
     if (c >= 95) return { ic: '⛈️', zh: '雷阵雨', en: 'Thunderstorm', tint: '#6c5ca8' };
     return { ic: '🌡️', zh: '—', en: '—', tint: 'transparent' };
   }
+  // Animated weather picture for a WMO code (CSS draws and animates it).
+  function wxKind(code) {
+    var c = Number(code);
+    if (c === 0) return 'clear';
+    if (c === 1) return 'mainly';
+    if (c === 2) return 'partly';
+    if (c === 3) return 'overcast';
+    if (c === 45 || c === 48) return 'fog';
+    if (c >= 51 && c <= 57) return 'drizzle';
+    if (c >= 61 && c <= 67) return 'rain';
+    if ((c >= 71 && c <= 77) || c === 85 || c === 86) return 'snow';
+    if (c >= 80 && c <= 82) return 'showers';
+    if (c >= 95) return 'thunder';
+    return 'overcast';
+  }
+  function wxArt(code, isDay, small) {
+    var k = wxKind(code), night = isDay === 0;
+    var sky = night ? '<i class="a-moon"></i>' : '<i class="a-sun"><b></b></i>';
+    var cloud = function (c) { return '<i class="a-cloud' + (c ? ' ' + c : '') + '"></i>'; };
+    var drops = function (n, c) { var s = ''; for (var i = 0; i < n; i++) s += '<i class="a-drop' + (c ? ' ' + c : '') + '" style="--i:' + i + '"></i>'; return s; };
+    var h = {
+      clear: sky,
+      mainly: sky + cloud('sm'),
+      partly: sky + cloud(),
+      overcast: cloud('back') + cloud(),
+      fog: cloud('back') + '<i class="a-fog"></i><i class="a-fog f2"></i>',
+      drizzle: cloud() + drops(3, 'fine'),
+      rain: cloud('dark') + drops(4),
+      showers: sky + cloud() + drops(3),
+      thunder: cloud('dark') + '<i class="a-bolt"></i>' + drops(2),
+      snow: cloud() + drops(3, 'flake')
+    }[k];
+    return '<span class="wxa wxa-' + k + (night ? ' night' : '') + (small ? ' sm' : '') + '" aria-hidden="true">' + h + '</span>';
+  }
   function r0(n) { return n == null || isNaN(n) ? '–' : Math.round(n); }
   function fetchJSON(url, ms) {
     var ctl = window.AbortController ? new AbortController() : null;
@@ -402,7 +436,7 @@
         return '<article class="wx' + (i === todayCity ? ' today' : '') + '" style="--wx-tint:' + info.tint + '">' +
           (i === todayCity ? '<span class="wx-today-tag">今天 <span lang="en">Today</span></span>' : '') +
           '<h3 class="wx-city">' + bi(c) + '</h3>' +
-          '<div class="wx-now"><span class="wx-ic" aria-hidden="true">' + info.ic + '</span><span class="wx-t">' + r0(cur.temperature_2m) + '°</span></div>' +
+          '<div class="wx-now">' + wxArt(cur.weather_code, cur.is_day) + '<span class="wx-t">' + r0(cur.temperature_2m) + '°</span></div>' +
           '<p class="wx-lab">' + bi(info) + '</p>' +
           '<dl class="wx-dl">' +
           '<dt>体感<span class="en" lang="en">Feels</span></dt><dd>' + r0(cur.apparent_temperature) + '°</dd>' +
@@ -425,7 +459,7 @@
         '<div class="twx-m"><div class="city">' + bi(c) + '</div>' +
         (w ? '<span class="src ' + w.src + '">' + ({ fc: '预报 <span lang="en">Forecast</span>', past: '当天天气 <span lang="en">On the day</span>', ly: '去年同期 <span lang="en">Same day last year</span>' })[w.src] + '</span>' + ' <small class="muted">' + bi(info) + '</small>'
           : '<span class="src ly">暂无 <span lang="en">Not yet</span></span>') + '</div>' +
-        '<div class="twx-w">' + (w ? '<span class="ic" aria-hidden="true">' + info.ic + '</span><div class="hl">' + r0(w.max) + '° <span>/ ' + r0(w.min) + '°</span></div>' +
+        '<div class="twx-w">' + (w ? wxArt(w.code, 1, true) + '<div class="hl">' + r0(w.max) + '° <span>/ ' + r0(w.min) + '°</span></div>' +
           '<small>' + (w.src !== 'ly' ? '☔ ' + r0(w.rain) + '%' : '💧 ' + (w.mm == null ? '–' : (Math.round(w.mm * 10) / 10)) + ' mm') + '</small>' : '<span class="ic" aria-hidden="true">·</span>') + '</div>' +
         '</article>';
     }).join('');
@@ -436,7 +470,7 @@
       var w = dayWeather(d);
       if (w && w.src === 'fc') {
         var info = wmo(w.code, 1);
-        el.innerHTML = info.ic + ' ' + r0(w.max) + '° / ' + r0(w.min) + '° · ☔ ' + r0(w.rain) + '% <span class="en" lang="en">forecast</span>';
+        el.innerHTML = wxArt(w.code, 1, true) + ' ' + r0(w.max) + '° / ' + r0(w.min) + '° · ☔ ' + r0(w.rain) + '% <span class="en" lang="en">forecast</span>';
         el.hidden = false;
       } else el.hidden = true;
     });
@@ -816,6 +850,11 @@
       ents.forEach(function (e) { if (e.isIntersecting) setActiveChip(Number(e.target.id.split('-')[1])); });
     }, { rootMargin: '-35% 0px -60% 0px' });
     $$('.day').forEach(function (d) { dayObs.observe(d); });
+
+    var wxObs = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) { e.target.classList.toggle('wx-on', e.isIntersecting); });
+    });
+    wxObs.observe($('#weather'));
 
     var mapObs = new IntersectionObserver(function (ents) {
       if (ents.some(function (e) { return e.isIntersecting; })) { initMap(); mapObs.disconnect(); }

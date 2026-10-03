@@ -671,7 +671,7 @@ details.remarks summary .en { font-family: var(--sans); font-size: .7em; font-we
 .flip { align-items: flex-start; gap: .3rem; }
 .flip-colon { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--gold); padding-top: .2rem; }
 .flip-n { min-width: 2.9rem; font-size: 1.75rem; color: #f6dc9a; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); }
-.flip-u.sec .flip-n { color: #ffb4a6; }
+.flip-u.is-sec .flip-n { color: #ffb4a6; }
 .count-route { margin-top: .4rem; font-size: 1rem; }
 .count-dots { display: flex; gap: .3rem; margin-top: .6rem; }
 .count-dots i { width: 1.6rem; height: .35rem; border-radius: 99rem; background: var(--line); }
@@ -801,3 +801,79 @@ details.remarks summary .en { font-family: var(--sans); font-size: .7em; font-we
 .flip-n { overflow: hidden; }
 .flip-n.tick { animation: digitIn .35s var(--ease); }
 @keyframes digitIn { from { transform: translateY(-.35em); opacity: .15; } to { transform: none; opacity: 1; } }
+
+/* =====================================================================
+   Animated weather icons (CSS only). Every animation is transform/opacity,
+   and they only run while the weather section is on screen (#weather.wx-on).
+   ===================================================================== */
+.wxa { position: relative; display: inline-block; flex: none; font-size: 1rem; width: 4.4em; height: 3.5em; }
+.wxa.sm { font-size: .6rem; }
+.wxa i { position: absolute; display: block; font-style: normal; }
+.wxa * { animation-play-state: paused !important; }
+#weather.wx-on .wxa *, .day-meta .wxa * { animation-play-state: running !important; }
+
+/* sun with turning rays */
+.a-sun { left: .35em; top: .15em; width: 2.2em; height: 2.2em; border-radius: 50%;
+  background: radial-gradient(circle at 38% 36%, #fff6c4, #ffd23f 52%, #f59e0b);
+  box-shadow: 0 0 1.1em rgba(255, 190, 40, .55); }
+.a-sun b { position: absolute; inset: -.6em; border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 205, 70, .9) 0 7deg, transparent 7deg 30deg);
+  -webkit-mask: radial-gradient(circle, transparent 57%, #000 60% 70%, transparent 73%);
+          mask: radial-gradient(circle, transparent 57%, #000 60% 70%, transparent 73%);
+  animation: spin 14s linear infinite; }
+.wxa-clear .a-sun { left: 1.1em; top: .55em; width: 2.4em; height: 2.4em; }
+
+/* moon with a soft glow and twinkling stars */
+.a-moon { left: .7em; top: .25em; width: 2em; height: 2em; border-radius: 50%;
+  box-shadow: inset .62em -.12em 0 0 #f6dc9a; filter: drop-shadow(0 0 .45em rgba(246, 220, 154, .55));
+  animation: bob 4.5s ease-in-out infinite alternate; }
+.a-moon::before, .a-moon::after { content: ""; position: absolute; width: .22em; height: .22em; border-radius: 50%; background: #fff4cf; animation: twinkle 2.6s ease-in-out infinite; }
+.a-moon::before { left: 2.4em; top: .1em; }
+.a-moon::after { left: 2.9em; top: 1.1em; animation-delay: -1.3s; }
+.wxa-clear .a-moon { left: 1.3em; top: .55em; }
+
+/* clouds drifting */
+.a-cloud { left: 1em; top: 1.45em; width: 2.9em; height: 1.15em; border-radius: 1em;
+  background: #f4f6fb; box-shadow: 0 .25em .5em -.2em rgba(20, 30, 60, .35);
+  animation: drift 5.5s ease-in-out infinite alternate; }
+.a-cloud::before, .a-cloud::after { content: ""; position: absolute; border-radius: 50%; background: inherit; }
+.a-cloud::before { width: 1.3em; height: 1.3em; left: .4em; top: -.62em; }
+.a-cloud::after { width: 1.65em; height: 1.65em; left: 1.05em; top: -.95em; }
+.a-cloud.sm { font-size: .68em; left: 2.6em; top: 2.5em; animation-duration: 4.2s; }
+.a-cloud.back { font-size: .82em; left: .3em; top: 1.05em; background: #c9d1e2; animation-direction: alternate-reverse; animation-duration: 7s; }
+.a-cloud.dark { background: #a3aec4; }
+.wxa.night .a-cloud { background: #cfd6e6; }
+.wxa.night .a-cloud.back, .wxa.night .a-cloud.dark { background: #8e99b3; }
+
+/* rain, drizzle, snow */
+.a-drop { top: 2.5em; left: calc(1.45em + var(--i) * .58em); width: .15em; height: .6em; border-radius: .1em;
+  background: linear-gradient(#9cc8ff, #3d8bfd); opacity: 0;
+  animation: fall .95s linear infinite; animation-delay: calc(var(--i) * -.27s); }
+.a-drop.fine { height: .38em; animation-duration: 1.35s; }
+.a-drop.flake { width: .32em; height: .32em; border-radius: 50%; background: #fff; box-shadow: 0 0 .2em rgba(255, 255, 255, .8); animation-name: snow; animation-duration: 2.3s; }
+
+/* thunder */
+.a-bolt { left: 2.05em; top: 2.2em; width: .85em; height: 1.35em; background: #ffd43b;
+  clip-path: polygon(45% 0, 100% 0, 62% 42%, 92% 42%, 18% 100%, 38% 55%, 8% 55%);
+  filter: drop-shadow(0 0 .3em rgba(255, 212, 59, .9)); opacity: 0; animation: flash 2.6s ease-out infinite; }
+
+/* fog */
+.a-fog { left: .4em; top: 2.45em; width: 3.4em; height: .24em; border-radius: .2em; background: rgba(226, 231, 241, .9); animation: fogslide 4.5s ease-in-out infinite alternate; }
+.a-fog.f2 { left: .9em; top: 2.85em; width: 2.8em; animation-delay: -2.2s; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob { from { transform: translateY(-.08em); } to { transform: translateY(.12em); } }
+@keyframes twinkle { 0%, 100% { opacity: .2; transform: scale(.6); } 50% { opacity: 1; transform: scale(1); } }
+@keyframes drift { from { transform: translateX(-.22em); } to { transform: translateX(.22em); } }
+@keyframes fall { 0% { opacity: 0; transform: translate(0, -.15em) rotate(12deg); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-.25em, 1.05em) rotate(12deg); } }
+@keyframes snow { 0% { opacity: 0; transform: translate(0, -.1em); } 20% { opacity: 1; } 50% { transform: translate(.2em, .5em); } 100% { opacity: 0; transform: translate(-.1em, 1.1em); } }
+@keyframes flash { 0%, 62%, 100% { opacity: 0; } 64% { opacity: 1; } 67% { opacity: .2; } 70% { opacity: 1; } 78% { opacity: 0; } }
+@keyframes fogslide { from { transform: translateX(-.3em); } to { transform: translateX(.3em); } }
+
+/* weather cards: layout for the animated art */
+.wx-now { gap: .2rem; margin-top: .2rem; }
+.wx-now .wxa { margin-left: -.35rem; }
+.twx-w .wxa { margin: -.3rem -.2rem -.2rem auto; display: block; }
+.pill-wx .wxa { margin: -.5rem -.15rem -.5rem -.35rem; }
+@media (min-width: 64em) { .wx-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .wxa * { animation: none !important; opacity: 1; } .a-drop, .a-bolt { opacity: .9; } }

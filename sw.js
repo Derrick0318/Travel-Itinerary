@@ -1,5 +1,5 @@
 /* Service worker — offline support. Bump VERSION whenever app files change. */
-const VERSION = 'v2.1.0';
+const VERSION = 'v2.2.0';
 const SHELL_CACHE = 'trip-shell-' + VERSION;
 const IMG_CACHE = 'trip-img-v1';     // trip photos persist across shell updates
 const TILE_CACHE = 'trip-tiles-v1';  // map tiles you have viewed
