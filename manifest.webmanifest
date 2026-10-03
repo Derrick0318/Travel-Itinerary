@@ -1,7 +1,7 @@
 {
-  "name": "My Trip — Half Old Streets, Half Future",
-  "short_name": "My Trip",
-  "description": "Personal companion for the 7-day Chaoshan & Guangdong trip.",
+  "name": "一半烟火，一半未来 · Half Old Streets, Half Future",
+  "short_name": "我的旅程",
+  "description": "我的潮汕广东七天行程 · My 7-day Chaoshan & Guangdong trip",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -27,5 +27,6 @@
       "type": "image/svg+xml",
       "purpose": "any"
     }
-  ]
+  ],
+  "lang": "zh-Hans"
 }
