@@ -3,3 +3,6 @@
 
 # Original brochure scan (kept local, not needed by the site)
 *.pdf
+
+# Impeccable review captures (local only)
+.impeccable/review/

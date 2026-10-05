@@ -1,5 +1,5 @@
 /*
- * Trip data — transcribed from the Brighton Travel & Tour brochure (prepared by Amy).
+ * Trip data, transcribed from the Brighton Travel & Tour brochure (prepared by Amy).
  * Every user-facing string is bilingual: { zh, en }.
  * Edit this file to correct details; the UI renders everything from here.
  */
@@ -13,8 +13,9 @@ window.TRIP = {
   duration: { zh: "7天6晚", en: "7 Days 6 Nights" },
   operator: { zh: "Brighton Travel & Tour · Amy 编制", en: "Brighton Travel & Tour · prepared by Amy" },
   heroImage: "assets/img/chaozhou-guangji-bridge-20191211-1280.jpg",
+  heroCredit: "Akira CA, CC BY-SA 3.0",
 
-  // Trip dates: 24–30 Nov 2026 (the brochure left the date blank). Can still be changed in the app.
+  // Trip dates: 24-30 Nov 2026 (the brochure left the date blank). Can still be changed in the app.
   departureDate: "2026-11-24",
 
   flights: [
@@ -86,7 +87,7 @@ window.TRIP = {
         },
         {
           name: { zh: "潮州古城", en: "Chaozhou Ancient City" },
-          desc: { zh: "距今已有 1600 多年历史，牌坊街最好逛。", en: "Over 1,600 years of history — stroll the famous Paifang (arch) Street." },
+          desc: { zh: "距今已有 1600 多年历史，牌坊街最好逛。", en: "Over 1,600 years of history. Stroll the famous Paifang (arch) Street." },
           tag: "sight", lat: 23.6645, lng: 116.6453,
           image: "assets/img/paifangjie-cropped.jpg",
           imageCredit: "Sgnpkd, CC BY-SA 4.0",
@@ -129,13 +130,13 @@ window.TRIP = {
           imageCredit: "Zhangzhugang, CC BY-SA 3.0",
         },
         {
-          name: { zh: "西马路——暹罗老街", en: "Xima Road — Siam Old Street" },
+          name: { zh: "西马路 · 暹罗老街", en: "Xima Road · Siam Old Street" },
           desc: { zh: "电影取景地之一。", en: "Another filming location, full of old-town character." },
           tag: "film", lat: 23.5405, lng: 116.344,
         },
         {
           name: { zh: "西湖公园", en: "West Lake Park" },
-          desc: { zh: "电影取景地之一，全家福拍摄地。", en: "Filming location — where the family-portrait scene was shot." },
+          desc: { zh: "电影取景地之一，全家福拍摄地。", en: "Filming location: where the family-portrait scene was shot." },
           tag: "film", lat: 23.5369, lng: 116.3395,
         },
       ],
@@ -161,7 +162,7 @@ window.TRIP = {
         },
         {
           name: { zh: "外观广州塔（不上塔）", en: "Canton Tower (outside view)" },
-          desc: { zh: "广州地标，昵称“小蛮腰”，600 米高，屹立珠江畔。", en: "Guangzhou's 600 m landmark nicknamed “Slim Waist”. Photo stop only — not going up." },
+          desc: { zh: "广州地标，昵称“小蛮腰”，600 米高，屹立珠江畔。", en: "Guangzhou's 600 m landmark nicknamed “Slim Waist”. Photo stop only, not going up." },
           tag: "sight", lat: 23.109, lng: 113.3191,
         },
         {
@@ -258,7 +259,7 @@ window.TRIP = {
           tag: "sight", lat: 22.5001, lng: 113.3828,
         },
         {
-          name: { zh: "深中通道", en: "Shenzhen–Zhongshan Link" },
+          name: { zh: "深中通道", en: "Shenzhen-Zhongshan Link" },
           desc: { zh: "经深中通道前往深圳机场。", en: "Cross the new bridge-and-tunnel sea link to Shenzhen Airport." },
           tag: "travel", lat: 22.58, lng: 113.7,
         },
@@ -274,7 +275,7 @@ window.TRIP = {
 
   optionalTours: {
     A: {
-      name: { zh: "《大潮归来——入梦潮州》表演", en: "“The Return of the Tide – Dreaming into Chaozhou” live show" },
+      name: { zh: "《大潮归来·入梦潮州》表演", en: "“The Return of the Tide: Dreaming into Chaozhou” live show" },
       price: 298, currency: "RMB", day: 3,
     },
     B: {
@@ -351,7 +352,7 @@ window.TRIP = {
     website: "https://www.brightontt.com",
   },
 
-  // My own prep list (not from the brochure) — ticked items are saved on the phone.
+  // Suggested prep list (not from the brochure). Ticks are saved on each phone.
   packing: [
     { zh: "护照（有效期 6 个月以上）", en: "Passport (6+ months validity)" },
     { zh: "确认签证 / 免签要求", en: "Check visa / visa-free entry rules" },
