@@ -17,8 +17,9 @@
   const save = () => store(KEY, state);
 
   /* ---------- small builders ---------- */
-  const bi = (o) => o ? `<span class="bi"><span class="zh">${esc(o.zh)}</span><span class="en" lang="en">${esc(o.en)}</span></span>` : '';
-  const bib = (o) => o ? `<span class="bib"><span class="zh">${esc(o.zh)}</span><span class="en" lang="en">${esc(o.en)}</span></span>` : '';
+  const hot = (s) => esc(s).replace(/\b(?:[01]?\d|2[0-3]):[0-5]\d\b|\bZH\d{3}\b|\b\d+ ?kg\b|\bRMB ?\d+/g, (m) => `<b class="key">${m}</b>`); // times, flights, baggage, prices
+  const bi = (o) => o ? `<span class="bi"><span class="zh">${hot(o.zh)}</span><span class="en" lang="en">${hot(o.en)}</span></span>` : '';
+  const bib = (o) => o ? `<span class="bib"><span class="zh">${hot(o.zh)}</span><span class="en" lang="en">${hot(o.en)}</span></span>` : '';
   const en = (s) => `<span class="en" lang="en">${esc(s)}</span>`;
   const ic = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
   const img = (src, alt, w = 960, h = 640) => `<img src="${esc(src)}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
@@ -212,6 +213,7 @@
         </div>
         <div class="day-body">
           <p class="tagline">${bib(d.tagline)}</p>
+          ${T.flights.filter((f) => f.day === d.n).map((f) => `<div class="day-flight">${ic('airplane-tilt')}<b class="df-no">${esc(f.no)}</b><span class="df-leg"><span><b>${esc(f.from.time)}</b>${esc(f.from.code)} ${bi(f.from.city)}</span><span><b>${esc(f.to.time)}</b>${esc(f.to.code)} ${bi(f.to.city)}</span></span></div>`).join('')}
           <p class="day-meta">${d.drive ? `<span class="pill">${ic('bus')} ${bi(d.drive)}</span>` : ''}<span class="pill pill-wx" data-wxday="${d.n}" hidden></span></p>
           <h4 class="lbl">${ic('fork-knife')} 餐食 <span lang="en">Meals</span></h4><div class="meals">${meals}</div>
           ${d.mealNote ? `<p class="note">${bib(d.mealNote)}</p>` : ''}
